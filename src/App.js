@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, { useState } from 'react'
-import NavBar from './components/NavBar';
+// import NavBar from './components/NavBar';
 import News from './components/News';
 import LoadingBar from 'react-top-loading-bar'
 
@@ -10,6 +10,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import NavBarF from './components/NavBarF';
 
 // **** THIS IS CLASS BASED COMPONENT ****
 // export class App extends Component {
@@ -82,7 +83,7 @@ export const App = () => {
     <Router>
       <div>
 
-        <NavBar />
+        <NavBarF />
         <LoadingBar
           color='#f11946'
           progress={progress}

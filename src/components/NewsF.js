@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import NewsItem from './NewsItem';
+import { SpinnerF } from './SpinnerF';
 
 
 export const NewsF = (props) => {
@@ -30,13 +32,14 @@ export const NewsF = (props) => {
     }
 
     useEffect(() => {
+        document.title = capitalizeFirstLetter(props.category);
         updateNews();
     }, [])
 
 
     const fetchMoreData = async () => {
+        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
         setPage(page + 1);
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
         let data = await fetch(url);
         let parsedData = await data.json();
         setArticles(articles.concat(parsedData.articles));
@@ -59,14 +62,14 @@ export const NewsF = (props) => {
     return (
         <>
             <h1 className="text-center" style={{ margin: "35px 0px" }}>News - Top Headlines from {capitalizeFirstLetter(props.category)}</h1>
-            {loading && <Spinner />}
+            {loading && <SpinnerF />}
 
 
             <InfiniteScroll
                 dataLength={articles.length}
                 next={fetchMoreData}
                 hasMore={articles.length !== totalResults}
-                loader={<Spinner />}
+                loader={<SpinnerF />}
             >
                 <div className="container">
 
